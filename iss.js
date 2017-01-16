@@ -8,7 +8,7 @@ request(url, function(err, response) {
   }
   else {
     var searchResults = JSON.parse(response.body)
-    console.log(searchResults);
+    //console.log(searchResults);
     console.log(Math.round(searchResults.iss_position.latitude*100)/100);
     console.log(Math.round(searchResults.iss_position.longitude*100)/100);
   }
