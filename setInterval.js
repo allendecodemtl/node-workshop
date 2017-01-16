@@ -1,10 +1,6 @@
-
-// setInterval(function(){               
-// 	console.log('Hello World Again!!!')   
-// },5000)
-
-while (true) {
-  setTimeout(function() {
-    console.log('Hello World!');
-  }, 1000);
+function printing(){
+    console.log("Hello World!")
+    setTimeout(printing, 1000);
 }
+
+printing();
