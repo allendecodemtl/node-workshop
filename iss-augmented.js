@@ -14,7 +14,7 @@ Number.prototype.toRadians = function() {
 prompt.start();
 
 // 
-// Get longitute and latitute of geolocation
+// Get longitute and latitute of geolocation of city
 // 
 prompt.get(['location'], function (err, result) {
 	
@@ -23,37 +23,45 @@ prompt.get(['location'], function (err, result) {
 	// 
 	console.log('Command-line input received:');
 	console.log('Enter your location: ' + result.location);
-	//console.log(result);
-	
+  
 	googleURL = googleURL + result.location;
-	//console.log(googleURL);
-	
+
+
+	// Get geolocation of city
 	request(googleURL, function(err, response) {
       if (err) {
         console.log("Something bad happened", err);
       }
       else {
         var searchResults = JSON.parse(response.body)
-        console.log(searchResults.results[0].geometry.location.lat);
-        console.log(searchResults.results[0].geometry.location.lng);
-        var lat1 = searchResults.results[0].geometry.location.lat;
-        var lon1 = searchResults.results[0].geometry.location.lng;
+        
+        var lat1 = Math.round(searchResults.results[0].geometry.location.lat*100)/100;
+        var lon1 = Math.round(searchResults.results[0].geometry.location.lng*100)/100;
+        
+        console.log(result.location + " lat: "+ lat1);
+        console.log(result.location + " lon: "+ lon1);
+        
       }
       
+      
+      // Get geolocation of ISS
       request(url, function(err, response) {
         if (err) {
           console.log("Something bad happened", err);
         }
         else {
           var searchResults = JSON.parse(response.body)
-          //console.log(searchResults);
-          console.log(Math.round(searchResults.iss_position.latitude*100)/100);
-          console.log(Math.round(searchResults.iss_position.longitude*100)/100);
+  
           var lat2 = Math.round(searchResults.iss_position.latitude*100)/100;
           var lon2 = Math.round(searchResults.iss_position.longitude*100)/100;
+        
+          console.log("ISS lat: "+ lat2);
+          console.log("ISS lon: "+ lon2);
+          
         }
         
-        // Distance calculation
+        
+        // Calculate distance
         var R = 6371e3; // metres
         var φ1 = lat1.toRadians();
         var φ2 = lat2.toRadians();
@@ -67,6 +75,7 @@ prompt.get(['location'], function (err, result) {
         
         var d = R * c;
         
+        // Print distance between two locations
         console.log("Distance to the iss: " + Math.round(d*100)/100);
         
         });
