@@ -76,7 +76,7 @@ prompt.get(['location'], function (err, result) {
         var d = R * c;
         
         // Print distance between two locations
-        console.log("Distance to the iss: " + Math.round(d*100)/100);
+        console.log("Distance to iss: " + Math.round(d*100)/100);
         
         });
     });

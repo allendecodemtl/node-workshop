@@ -1,25 +1,30 @@
 var prompt = require('prompt');
 
+
+function rungame() {
   // 
   // Start the prompt 
   // 
   prompt.start();
- 
+
   // 
   // Get word from user
   // 
-  prompt.get(['word'], function (err, result) {
+  prompt.get(['number'], function(err, result) {
     // 
     // Log the results. 
     // 
     console.log('Command-line input received:');
-    console.log('  word: ' + result.word);
-    
-    if (result.word === "test"){
-        console.log("You win");
-    } else {
-        console.log("Wrong, try again");
+    console.log('  number: ' + result.number);
+
+    if (result.number === "1") {
+      console.log("You win");
     }
-    
-    
+    else {
+      console.log("Wrong, try again");
+      rungame();
+    }
   });
+}
+
+rungame();
